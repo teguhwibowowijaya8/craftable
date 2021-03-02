@@ -83,7 +83,7 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [
+            "dont-discover": [
                 "Brackets\\Craftable\\CraftableServiceProvider"
             ]
         },
