@@ -36,13 +36,13 @@
     ],
     "require": {
         "php": "^7.4.0|^8.0",
-        "brackets/admin-auth": "dev-main",
-        "brackets/admin-listing": "dev-main",
-        "brackets/admin-translations": "dev-main",
-        "brackets/admin-ui": "dev-main",
-        "brackets/advanced-logger": "dev-main",
+        "brackets/admin-auth": "dev-adjustment",
+        "brackets/admin-listing": "dev-adjustment",
+        "brackets/admin-translations": "dev-adjustment",
+        "brackets/admin-ui": "dev-adjustment",
+        "brackets/advanced-logger": "dev-adjustment",
         "brackets/media": "^6.0",
-        "brackets/translatable": "dev-main",
+        "brackets/translatable": "dev-adjustment",
         "illuminate/support": "^6.0|^7.0|^8.0",
         "laravel/legacy-factories": "^1.1",
         "spatie/laravel-permission": "^3.0",
@@ -57,28 +57,28 @@
     },
     "repositories": [
         {
-            "type": "path",
-            "url": "../../brackets/admin-auth"
+            "type": "vcs",
+            "url": "https://github.com/teguhwibowowijaya8/admin-auth"
         },
         {
-            "type": "path",
-            "url": "../../brackets/admin-listing"
+            "type": "vcs",
+            "url": "https://github.com/teguhwibowowijaya8/admin-listing"
         },
         {
-            "type": "path",
-            "url": "../../brackets/admin-translations"
+            "type": "vcs",
+            "url": "https://github.com/teguhwibowowijaya8/admin-translations"
         },
         {
-            "type": "path",
-            "url": "../../brackets/admin-ui"
+            "type": "vcs",
+            "url": "https://github.com/teguhwibowowijaya8/admin-ui"
         },
         {
-            "type": "path",
-            "url": "../../brackets/advanced-logger"
+            "type": "vcs",
+            "url": "https://github.com/teguhwibowowijaya8/advanced-logger"
         },
         {
-            "type": "path",
-            "url": "../../brackets/translatable"
+            "type": "vcs",
+            "url": "https://github.com/teguhwibowowijaya8/translatable"
         }
     ],
     "extra": {
