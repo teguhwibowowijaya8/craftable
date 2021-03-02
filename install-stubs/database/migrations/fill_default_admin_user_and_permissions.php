@@ -41,7 +41,12 @@ class FillDefaultAdminUserAndPermissions extends Migration
     /**
      * @var string
      */
-    protected $password = 'best package ever';
+    protected $passwordAdmin = 'administrator123';
+
+    /**
+     * @var string
+     */
+    protected $passwordEmployee = 'employee123';
 
     /**
      * FillDefaultAdminUserAndPermissions constructor.
@@ -99,6 +104,13 @@ class FillDefaultAdminUserAndPermissions extends Migration
                     return $permission === 'admin.admin-user.impersonal-login';
                 }),
             ],
+            [
+                'name' => 'Employee',
+                'guard_name' => $this->guardName,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                'permissions' => $defaultPermissions->slice(0, 1),
+            ],
         ];
 
         //Add new users
@@ -106,8 +118,9 @@ class FillDefaultAdminUserAndPermissions extends Migration
             [
                 'first_name' => 'Administrator',
                 'last_name' => 'Administrator',
-                'email' => 'administrator@brackets.sk',
-                'password' => Hash::make($this->password),
+                'user_id' => 'USR-00001',
+                'email' => 'administrator@admin.com',
+                'password' => Hash::make($this->passwordAdmin),
                 'remember_token' => null,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
@@ -115,6 +128,26 @@ class FillDefaultAdminUserAndPermissions extends Migration
                 'roles' => [
                     [
                         'name' => 'Administrator',
+                        'guard_name' => $this->guardName,
+                    ],
+                ],
+                'permissions' => [
+                    //
+                ],
+            ],
+            [
+                'first_name' => 'Employee',
+                'last_name' => 'Employee',
+                'email' => 'employee@admin.com',
+                'user_id' => 'USR-00002',
+                'password' => Hash::make($this->passwordEmployee),
+                'remember_token' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                'activated' => true,
+                'roles' => [
+                    [
+                        'name' => 'Employee',
                         'guard_name' => $this->guardName,
                     ],
                 ],
@@ -187,15 +220,15 @@ class FillDefaultAdminUserAndPermissions extends Migration
                 unset($user['permissions']);
 
                 $userItem = DB::table($this->userTable)->where([
-                    'email' => $user['email'],
+                    'user_id' => $user['user_id'],
                 ])->first();
 
                 if ($userItem === null) {
                     $userId = DB::table($this->userTable)->insertGetId($user);
 
-                    AdminUser::find($userId)->addMedia(storage_path() . '/images/avatar.png')
-                        ->preservingOriginal()
-                        ->toMediaCollection('avatar', 'media');
+                    // AdminUser::find($userId)->addMedia(storage_path() . '/images/avatar.png')
+                    //     ->preservingOriginal()
+                    //     ->toMediaCollection('avatar', 'media');
 
                     foreach ($roles as $role) {
                         $roleItem = DB::table('roles')->where([
@@ -249,7 +282,7 @@ class FillDefaultAdminUserAndPermissions extends Migration
         }
         DB::transaction(function () {
             foreach ($this->users as $user) {
-                $userItem = DB::table($this->userTable)->where('email', $user['email'])->first();
+                $userItem = DB::table($this->userTable)->where('user_id', $user['user_id'])->first();
                 if ($userItem !== null) {
                     AdminUser::find($userItem->id)->media()->delete();
                     DB::table($this->userTable)->where('id', $userItem->id)->delete();
